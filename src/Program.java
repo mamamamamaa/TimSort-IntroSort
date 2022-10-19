@@ -3,7 +3,9 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         Scanner numb = new Scanner(System.in);
-        int[] arr = new int[0];
+        int[] greatArr = new int[0];
+        int[] badArr = new int[0];
+        int[] normalArr = new int[0];
         while (true){
             System.out.println("Меню");
             System.out.println("1. Згенерувати массив");
@@ -16,41 +18,53 @@ public class Program {
             switch (numb.nextInt()){
                 case 1:
                     System.out.print("\nВведіть розмір массиву: ");
-                    arr = new int [numb.nextInt()];
+                    int size = numb.nextInt();
+                    greatArr = new int [size];
+                    badArr = new int [size];
+                    normalArr = new int [size];
 
-                    for (int i = 0; i < arr.length; i++) {
-                        arr[i] = (int)(Math.random() * arr.length) + 1;
+                    for (int i = 0; i < size; i++) {
+                        greatArr[i] = i;
                     }
+
+                    for (int i = 0, j = size; i < size; i++, j--) {
+                        badArr[i] = j;
+                    }
+
+                    for (int i = 0; i < size; i++) {
+                        normalArr[i] = (int)(Math.random() * size) + 1;
+                    }
+
                     System.out.println("\n");
                     break;
                 case 2:
                     System.out.println("\n");
-                    if(arr.length == 0) {
+                    if(greatArr.length == 0) {
                         System.out.println("Ініціалізуйте массив!");
                         break;
                     }
-                    timSortMethod(arr);
+                    timSortMethod(greatArr, badArr, normalArr);
                     System.out.println("\n");
                     break;
                 case 3:
                     System.out.println("\n");
-                    if(arr.length == 0) {
+                    if(greatArr.length == 0) {
                         System.out.println("Ініціалізуйте массив!");
                         break;
                     }
-                    introSortMethod(arr);
+                    introSortMethod(greatArr, badArr, normalArr);
                     System.out.println("\n");
                     break;
                 case 4:
                     System.out.println("\n");
-                    if(arr.length == 0) {
+                    if(greatArr.length == 0) {
                         System.out.println("Ініціалізуйте массив!");
                         break;
                     }
                     System.out.println("TimSort: ");
-                    timSortMethod(arr);
+                    timSortMethod(greatArr, badArr, normalArr);
                     System.out.println("IntroSort: ");
-                    introSortMethod(arr);
+                    introSortMethod(greatArr, badArr, normalArr);
                     System.out.println("\n");
                     break;
                 case 5:
@@ -62,23 +76,63 @@ public class Program {
         }
     }
 
-    static void timSortMethod(int []arr){
-        int[] timArr = arr.clone();
-        long startTimTime = System.currentTimeMillis();
-        TimSort.timSort(timArr, timArr.length);
-        long endTimTime = System.currentTimeMillis() - startTimTime;
-        System.out.println("\tSorted for "+endTimTime+"ms");
+    static void timSortMethod(int []greatArr, int []badArr, int []normalArr){
+        System.out.print("Great arr: ");
+        int[] timArr1 = greatArr.clone();
+        long startTimTime1 = System.currentTimeMillis();
+        TimSort.timSort(timArr1, timArr1.length);
+        long endTimTime1 = System.currentTimeMillis() - startTimTime1;
+        System.out.println("\tSorted for "+endTimTime1+"ms");
+
+        System.out.print("Bad arr: ");
+        int[] timArr2 = badArr.clone();
+        long startTimTime2 = System.currentTimeMillis();
+        TimSort.timSort(timArr2, timArr2.length);
+        long endTimTime2 = System.currentTimeMillis() - startTimTime2;
+        System.out.println("\tSorted for "+endTimTime2+"ms");
+
+        System.out.print("Normal arr: ");
+        int[] timArr3 = normalArr.clone();
+        long startTimTime3 = System.currentTimeMillis();
+        TimSort.timSort(timArr3, timArr3.length);
+        long endTimTime3 = System.currentTimeMillis() - startTimTime3;
+        System.out.println("\tSorted for "+endTimTime3+"ms");
     }
 
-    static void introSortMethod(int []arr){
-        int[] introArr = arr.clone();
-        IntroSort introsort = new IntroSort(introArr.length);
-        for (int j : introArr) {
-            introsort.dataAppend(j);
+    static void introSortMethod(int []greatArr, int []badArr, int []normalArr) {
+        System.out.print("Great arr: ");
+        int[] introArr1 = greatArr.clone();
+        IntroSort introsort1 = new IntroSort(introArr1.length);
+        for (int j : introArr1) {
+            introsort1.dataAppend(j);
         }
-        long startIntroTime = System.currentTimeMillis();
-        introsort.sortData();
-        long endIntroTime = System.currentTimeMillis() - startIntroTime;
-        System.out.println("\tSorted for "+endIntroTime+"ms");
+        long startIntroTime1 = System.currentTimeMillis();
+        introsort1.sortData();
+        long endIntroTime1 = System.currentTimeMillis() - startIntroTime1;
+        System.out.println("\tSorted for " + endIntroTime1 + "ms");
+
+
+        System.out.print("Bad arr: ");
+        int[] introArr2 = badArr.clone();
+        IntroSort introsort2 = new IntroSort(introArr2.length);
+        for (int j : introArr2) {
+            introsort2.dataAppend(j);
+        }
+        long startIntroTime2 = System.currentTimeMillis();
+        introsort2.sortData();
+        long endIntroTime2 = System.currentTimeMillis() - startIntroTime2;
+        System.out.println("\tSorted for " + endIntroTime2 + "ms");
+
+
+        System.out.print("Great arr: ");
+        int[] introArr3 = normalArr.clone();
+        IntroSort introsort3 = new IntroSort(introArr3.length);
+        for (int j : introArr3) {
+            introsort3.dataAppend(j);
+        }
+        long startIntroTime3 = System.currentTimeMillis();
+        introsort1.sortData();
+        long endIntroTime3 = System.currentTimeMillis() - startIntroTime3;
+        System.out.println("\tSorted for " + endIntroTime3 + "ms");
     }
 }
